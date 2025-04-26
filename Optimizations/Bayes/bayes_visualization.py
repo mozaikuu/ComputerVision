@@ -11,7 +11,7 @@ from google.colab import files
 final_model = load_model("best_vgg16_bayes_model.keras")
 
 # 📁 إنشاء مجلد لحفظ الصور إذا لم يكن موجودًا
-image_folder = "test_images"
+image_folder = "../../data_split/test"
 os.makedirs(image_folder, exist_ok=True)
 
 # ⬆ رفع صورة/صور من الجهاز المحلي

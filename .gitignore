@@ -7,3 +7,6 @@
 /Models/too-big
 /runs
 /conference-template-a4.docx
+/template.pdf
+/Dockerfile
+.dockerignore
