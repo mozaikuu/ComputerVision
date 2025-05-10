@@ -1,0 +1,178 @@
+Title:
+Optimizing Deep Learning Models Using Genetic Algorithms for pneumonia disease classification: A Comparative Study
+
+Abstract:
+For deep models to perform efficiently, considerable computational optimization is usually needed. In this work, we suggest a new method for deep convolution neural network evolution using Genetic Algorithms (GA) by duplicating feature extraction layers, adjusting internal weights, and choosing the best variant models based on fitness assessment. Our GA-based optimization method was implemented to the VGG16 architecture as the foundation model, and its performance was compared with that of Particle Swarm Optimization (PSO), Bayesian Optimization, YOLOv8, Grey Wolf Optimizer (GWO), and Ant Colony Optimization (ACO). According to a number of evaluation metrics, the empirical results show that our GA-based model
+
+Keywords:
+Keywords—Deep learning , Genetic Algorithm, Comparison , Optimization , Pre-trained Model
+
+Introduction:
+In this study, we used a Genetic Algorithm to modify and optimize the well-known VGG16 model. Our idea was to duplicate some feature extraction layers, adjust internal weights, and evaluate the models using a fitness function to select the best-performing version.
+After building the optimized model, we compared its performance with other popular optimization methods, including Particle Swarm Optimization (PSO), Bayesian Optimization, YOLOv8, Grey Wolf Optimizer (GWO), and Ant Colony Optimization (ACO). The goal of this comparison is to highlight how effective our evolutionary approach is compared to traditional and swarm intelligence methods.
+
+TODO: fix result area
+The results showed that using the Genetic Algorithm helped to significantly improve the model’s accuracy and generalization ability, demonstrating that evolutionary methods can be very powerful for advancing deep learning models
+
+Literature Review:
+The optimization of deep learning models has become a crucial step to enhance performance, reduce computational costs, and improve generalization. Traditional training methods, such as stochastic gradient descent (SGD), although effective, can struggle with local minima and hyperparameter sensitivity. As a result, researchers have turned to metaheuristic algorithms such as Genetic Algorithms (GA), Particle Swarm Optimization (PSO), Bayesian Optimization, Grey Wolf Optimizer (GWO), and Ant Colony Optimization (ACO) to optimize deep learning models.
+
+Genetic Algorithms, inspired by the principles of natural evolution, have shown promise in evolving neural networks by adjusting weights, selecting optimal architectures, and fine-tuning hyperparameters. Bedi et al. (2024) proposed EvoLearn, a method that integrates GA with traditional backpropagation to optimize deep learning weights, showing significant performance improvements over standard training methods. Similarly, Jeong et al. (2022) introduced selective layer tuning in pretrained models such as VGG16 and ResNet using GAs, demonstrating that intelligently choosing which layers to fine-tune can yield higher accuracy with reduced computational effort.
+
+In the context of deep convolutional neural networks (CNNs), López-Rincón et al. (2018) successfully employed GA to optimize hyperparameters for cancer classification tasks, outperforming manually tuned networks. Lee et al. (2021) further extended GA applications by evolving both the structure and hyperparameters of deep neural networks, emphasizing the flexibility and robustness of GA in high-dimensional search spaces.
+
+Comparative studies between GA and other optimization techniques have provided deeper insights into their relative strengths. Purnomo et al. (2024) compared GA, ACO, and Harmony Search for CNN hyperparameter optimization, finding that although ACO achieved slightly higher accuracy, GA converged faster. Similarly, Lankford and Grimes (2024) showed that PSO often outperforms ACO in complex architecture search tasks, but GA remains competitive due to its diverse exploration capabilities.
+
+Bayesian Optimization, particularly Gaussian-process-based models, has also been widely adopted for hyperparameter tuning. However, Raiaan et al. (2024) noted in their systematic review that metaheuristic approaches like GA, GWO, and ACO perform commendably in specific domains such as medical imaging and time-series forecasting, where the search space is complex and non-convex.
+
+The Grey Wolf Optimizer (GWO) and Ant Colony Optimization (ACO) have gained attention as well, particularly for their collective behavior mechanisms which balance exploration and exploitation. Kaveh and Mesgari (2023) reviewed various metaheuristics and highlighted that while swarm-based methods (e.g., PSO, GWO) often converge quickly, evolutionary strategies like GA provide a better balance between global search and local refinement.
+
+In summary, the literature suggests that Genetic Algorithms are highly effective for optimizing deep learning models, particularly when combined with pretrained architectures. The ability to evolve weights, selectively fine-tune layers, and adaptively search the solution space makes GA a strong contender against other metaheuristic and Bayesian methods. However, the choice of optimization technique often depends on the specific problem domain, model architecture, and computational constraints.
+
+Methodology / Materials and Methods:
+In this study, we propose a Genetic Algorithm (GA)-based method to optimize a deep convolutional neural network, specifically the pretrained VGG16 model. Our approach focuses on minimal intervention in the original model architecture while allowing evolutionary strategies to refine performance through weight mutations.
+
+1. Pretrained Model Preparation
+We selected the VGG16 model, pretrained on the ImageNet dataset, as the base architecture. To adapt it for our specific optimization and evaluation tasks:
+
+Layer Modification:
+The final classification layer of the pretrained VGG16 was removed. A new, task-specific output layer was appended, matching the number of target classes.
+
+Layer Freezing:
+All original feature extraction layers (convolutional and pooling layers) were frozen, meaning their weights were not updated during standard backpropagation. Only the newly added output layer remained trainable during initial evaluations.
+
+2. Genetic Algorithm Framework
+The Genetic Algorithm was employed to optimize the network as follows:
+
+Population Initialization:
+A population of candidate models was created by duplicating the modified VGG16 structure. Each candidate shared the same frozen layers but had random small variations in the trainable output layer weights.
+
+Fitness Evaluation:
+Each model was evaluated on a validation dataset. The fitness score was based on accuracy and/or a custom metric combining accuracy with model confidence or loss.
+
+Selection:
+The top-performing models, based on fitness, were selected to form a mating pool for the next generation.
+
+Mutation:
+New candidate models were generated by applying controlled mutations to the weights of the output layer of selected models. Mutations included:
+
+Adding small Gaussian noise to selected weights.
+
+Randomly reinitializing a small fraction of weights.
+
+Crossover (Optional):
+Although mutation was the primary driver of evolution in our method, optional experiments included weight crossover, where parts of the output layer weight matrices from two parent models were combined.
+
+Iteration:
+The evolutionary cycle (fitness evaluation → selection → mutation) was repeated for a fixed number of generations or until convergence criteria were met (e.g., no significant improvement after several generations).
+
+3. Comparative Methods
+To benchmark the performance of our GA-optimized model, we compared it against other well-known optimization techniques:
+
+Particle Swarm Optimization (PSO).
+
+Bayesian Optimization.
+
+Grey Wolf Optimizer (GWO).
+
+Ant Colony Optimization (ACO).
+
+YOLOv8 model as a high-performance baseline.
+
+Each comparative method was tuned according to best practices described in the literature, ensuring a fair and meaningful evaluation.
+
+4. Experimental Setup
+Hardware:
+Experiments were conducted on a machine equipped with an NVIDIA GPU (e.g., RTX 2060) and 22 GB RAM.
+
+Software:
+
+Framework: TensorFlow 
+
+Libraries: Scikit-learn for evaluation metrics, DEAP or custom GA implementations for evolutionary strategies.
+
+Dataset:
+a pneumonia dataset aquired from kaggle
+
+Training Details:
+
+Batch Size: 32.
+
+Optimizer: Adam optimizer for hyperparameter tuning before GA optimization kicks in.
+
+Learning Rate: Fine-tuned per method, often starting from 1e-4.
+
+Number of GA Generations: Typically 10–50 generations depending on the population size and early stopping behavior.
+
+Results:
+
+Discussion:
+
+Conclusion:
+
+References:
+
+
+
+
+Genetic algorithms for deep learning: Bedi et al. (2024) integrate a GA with backpropagation (the “EvoLearn” method) to optimize network weights during training, improving accuracy on time-series tasks​
+nature.com
+. Lee et al. (2021) apply GA to evolve both CNN architecture and hyperparameters (on an Alzheimer’s imaging task) and report it outperforms genetic-CNN baselines​
+mdpi.com
+. López-Rincón et al. (2018) use GA to optimize CNN hyperparameters for cancer microRNA classification, showing significantly improved performance​
+researchers.cdu.edu.au
+. Jeong et al. (2022) specifically apply GA for selective layer tuning of pretrained CNNs (VGG, ResNet, etc.), finding that GA-guided tuning of which layers to freeze yields higher accuracy and training speed than random or naive fine-tuning​
+mdpi.com
+. These works demonstrate that GA-based optimization of pretrained models and hyperparameters is feasible and effective (e.g. GA improved accuracy on CNN-based classification tasks​
+researchers.cdu.edu.au
+ and tuned layers of VGG/ResNet for sensor data​
+mdpi.com
+). GA vs other metaheuristics: Several studies compare GA with swarm-based and other metaheuristic optimizers. For example, Purnomo et al. (2024) evaluate GA, Ant Colony, and Harmony Search for CNN hyperparameter tuning on MNIST, finding ACO achieved 99.7% vs GA’s 97.7% accuracy (with GA converging faster)​
+researchgate.net
+. Lankford & Grimes (2024) compare Particle Swarm and Ant Colony for CNN architecture search and observe PSO outperforms ACO on complex image tasks​
+arxiv.org
+. A broad systematic review by Raiaan et al. (2024) summarizes many HPO methods (including GA, PSO, ACO, GWO, Bayesian, etc.) for CNNs; they note GA, Grey Wolf, and Firefly algorithms performed “commendable” on medical-image CNN hyperparameter tuning, while Bayesian optimization and PSO were often strong on other datasets​
+researchers.cdu.edu.au
+. Kaveh & Mesgari (2023) also survey meta-heuristics for neural nets, listing GA among popular MH methods for network structure, weight, and hyperparameter optimization. Together these comparisons suggest GA is competitive with PSO/GWO/ACO: e.g. PSO often converges faster but can get stuck, whereas GA’s crossover/mutation can explore broadly​
+pmc.ncbi.nlm.nih.gov
+​
+researchgate.net
+. Other optimizers: Bayesian optimization (Gaussian-process-based) is widely used for hyperparameter tuning in deep learning (e.g. Snoek et al. 2012, etc.), and is noted in reviews as achieving high performance on many image tasks​
+researchers.cdu.edu.au
+. In practice, hybrid or ensemble approaches are common (e.g. combining GA with backprop​
+nature.com
+). Grey Wolf Optimizer (GWO) and Ant Colony Optimization (ACO) have also been applied; for instance, one study found GWO improved modular neural network design relative to GA (by leveraging multiple leader agents)​
+pmc.ncbi.nlm.nih.gov
+. Comparisons generally find no one “best” algorithm, but rather that GA, PSO, GWO, ACO each have strengths depending on problem structure. The cited surveys and studies above provide detailed empirical comparisons of GA versus PSO/GWO/ACO/Bayesian for CNN/ANN training and tuning​
+researchgate.net
+​
+researchers.cdu.edu.au
+​
+arxiv.org
+​
+pmc.ncbi.nlm.nih.gov
+. Key References (APA):
+Bedi, J., Anand, A., Godara, S., Bana, R. S., Faiz, M. A., Marwaha, S., & Parsad, R. (2024). Effective weight optimization strategy for precise deep learning forecasting models using EvoLearn approach. Scientific Reports, 14, 20139. https://doi.org/10.1038/s41598-024-69325-3 
+nature.com
+.
+Jeong, J.-C., Yu, G.-H., Song, M.-G., Vu, D. T., Anh, L. H., Jung, Y.-A., Choi, Y.-A., Um, T.-W., & Kim, J.-Y. (2022). Selective layer tuning and performance study of pre-trained models using genetic algorithm. Electronics, 11(19), 2985. https://doi.org/10.3390/electronics11192985 
+mdpi.com
+.
+Lee, S., Kim, J., Kang, H., Kang, D.-Y., & Park, J. (2021). Genetic algorithm based deep learning neural network structure and hyperparameter optimization. Applied Sciences, 11(2), 744. https://doi.org/10.3390/app11020744 
+mdpi.com
+.
+López-Rincón, A., Tonda, A., Elati, M., Schwander, O., Piwowarski, B., & Gallinari, P. (2018). Evolutionary optimization of convolutional neural networks for cancer microRNA biomarkers classification. Applied Soft Computing, 65, 91–100. https://doi.org/10.1016/j.asoc.2017.12.036 
+researchers.cdu.edu.au
+.
+Kaveh, M., & Mesgari, M. S. (2023). Application of meta-heuristic algorithms for training neural networks and deep learning architectures: A comprehensive review. Neural Processing Letters, 55, 4519–4622. https://doi.org/10.1007/s11063-022-11055-6.
+Raiaan, M. A. K., Sakib, S., Fahad, N. M., Al Mamun, A. A., Rahman, M. A., Shatabda, S., & Mukta, M. S. H. (2024). A systematic review of hyperparameter optimization techniques in convolutional neural networks: A decision perspective. Decision Analytics Journal, 11, 100470. https://doi.org/10.1016/j.dajour.2024.100470 
+researchers.cdu.edu.au
+​
+researchers.cdu.edu.au
+.
+Purnomo, H. D., Gonsalves, T., Mailoa, E., Santoso, F. Y., & Pribadi, M. R. (2024). Metaheuristics approach for hyperparameter tuning of convolutional neural networks. Journal RESTI (Rekayasa Sistem dan Teknologi Informasi), 8(3), 340–345​
+researchgate.net
+.
+Lankford, S., & Grimes, D. (2024). Neural architecture search using particle swarm and ant colony optimization. arXiv:2403.03781​
+arxiv.org
+. These sources provide both how GA can optimize deep models (including pretrained CNNs) and how its performance compares empirically to PSO, Bayesian methods, GWO, ACO, etc. Each citation above is in APA style for inclusion in a References section.

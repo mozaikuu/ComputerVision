@@ -10,3 +10,7 @@
 /template.pdf
 /Dockerfile
 .dockerignore
+/OPT
+.venv
+/Visualizer/runs
+/Visualizer/test_images
